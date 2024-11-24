@@ -1,0 +1,85 @@
+networks:
+  dev:
+    name: "dev"
+services:
+  balancer:
+    build:
+      context: .
+      dockerfile: balancer.dockerfile
+    ports:
+      - 8080:80
+    environment:
+      - LISTEN=0.0.0.0:80
+      - LIMIT=20000000000
+      - TIMEOUT=120s
+      - DIR=data/balancer
+      - STORAGES=storage-0:9000,storage-1:9001,storage-2:9002,storage-3:9003,storage-4:9004,storage-5:9005
+    networks:
+      - dev
+  storage-0:
+    build:
+      context: .
+      dockerfile: storage.dockerfile
+    environment:
+      - LISTEN=0.0.0.0:9000
+      - LIMIT=20000000000
+      - TIMEOUT=120s
+      - DIR=data/storage-0
+    networks:
+      - dev
+  storage-1:
+    build:
+      context: .
+      dockerfile: storage.dockerfile
+    environment:
+      - LISTEN=0.0.0.0:9001
+      - LIMIT=20000000000
+      - TIMEOUT=120s
+      - DIR=data/storage-1
+    networks:
+      - dev
+  storage-2:
+    build:
+      context: .
+      dockerfile: storage.dockerfile
+    environment:
+      - LISTEN=0.0.0.0:9002
+      - LIMIT=20000000000
+      - TIMEOUT=120s
+      - DIR=data/storage-2
+    networks:
+      - dev
+  storage-3:
+    build:
+      context: .
+      dockerfile: storage.dockerfile
+    environment:
+      - LISTEN=0.0.0.0:9003
+      - LIMIT=20000000000
+      - TIMEOUT=120s
+      - DIR=data/storage-3
+    networks:
+      - dev
+  storage-4:
+    build:
+      context: .
+      dockerfile: storage.dockerfile
+    environment:
+      - LISTEN=0.0.0.0:9004
+      - LIMIT=20000000000
+      - TIMEOUT=120s
+      - DIR=data/storage-4
+    networks:
+      - dev
+  storage-5:
+    build:
+      context: .
+      dockerfile: storage.dockerfile
+    environment:
+      - LISTEN=0.0.0.0:9005
+      - LIMIT=20000000000
+      - TIMEOUT=120s
+      - DIR=data/storage-5
+    networks:
+      - dev
+
